@@ -8,7 +8,7 @@ class GoogleAuth extends React.Component {
     window.gapi.load('client:auth2', () => {
       // async function for init, takes time to load, callback, returns a promise
       window.gapi.client.init({
-        clientId: '1029777883888-qsln83rq98vb9v32bn3u7801p0j0njq5.apps.googleusercontent.com',
+        clientId: process.env.REACT_APP_CLIENT_ID,
         scope: 'email'
       }).then(() => {
         // at this point once gapi fully loaded, can check for auth
@@ -19,9 +19,11 @@ class GoogleAuth extends React.Component {
     });
   }
 
+  // handles the user signing in and out via the action controller, pass id for later use for authorisation
   onAuthChange = (isSignedIn) => {
+    const id = this.auth.currentUser.get().getId();
     if (isSignedIn) {
-      this.props.signIn()
+      this.props.signIn(id)
     } else {
       this.props.signOut();
     };
@@ -35,6 +37,7 @@ class GoogleAuth extends React.Component {
     this.auth.signOut();
   };
 
+  // function to render the correct text within the button for signing in or out
   renderAuthButton() {
     if (this.props.isSignedIn === null) {
       return null
