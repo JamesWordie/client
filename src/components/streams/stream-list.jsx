@@ -13,8 +13,8 @@ class StreamList extends React.Component {
     if (stream.userId === this.props.currentUserId) {
       return (
         <div className="btn-group align-self-center">
-          <button className="btn btn-outline-info">Edit</button>
-          <button className="btn btn-outline-danger">Delete</button>
+          <Link to={`streams/edit/${stream.id}`} className="btn btn-outline-info">Edit</Link>
+          <Link to={`streams/delete/${stream.id}`} className="btn btn-outline-danger">Delete</Link>
         </div>
       );
     }
