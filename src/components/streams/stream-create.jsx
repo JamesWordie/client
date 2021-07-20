@@ -27,7 +27,7 @@ class StreamCreate extends React.Component {
   }
 
   onSubmit(formValues) {
-    console.log(formValues) // returns an object of the form values we need
+    // returns an object of the form values we need
     // event.preventDefault(); handled by redux form
   }
 
