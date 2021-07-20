@@ -8,6 +8,7 @@ class StreamList extends React.Component {
     this.props.fetchStreams();
   }
 
+  // if current user is the creater of the stream they can edit or delete
   renderAdminButtons(stream) {
     if (stream.userId === this.props.currentUserId) {
       return (
@@ -19,6 +20,7 @@ class StreamList extends React.Component {
     }
   }
 
+  // fucntion to display the streams, mapping over each one
   renderList() {
     return this.props.streams.map(stream => {
       return (
@@ -34,6 +36,7 @@ class StreamList extends React.Component {
     })
   }
 
+  // if user is signed in, they can naviagte to create a stream
   renderCreateButton() {
     if (this.props.isSignedIn) {
       return (
