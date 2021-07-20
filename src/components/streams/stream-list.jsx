@@ -1,10 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchStreams } from '../../actions';
+import { Link } from 'react-router-dom';
 
 class StreamList extends React.Component {
   componentDidMount() {
     this.props.fetchStreams();
+  }
+
+  renderAdminButtons(stream) {
+    if (stream.userId === this.props.currentUserId) {
+      return (
+        <div className="btn-group align-self-center">
+          <button className="btn btn-outline-info">Edit</button>
+          <button className="btn btn-outline-danger">Delete</button>
+        </div>
+      );
+    }
   }
 
   renderList() {
@@ -16,9 +28,20 @@ class StreamList extends React.Component {
             <div className="fw-bold">{stream.title}</div>
             {stream.description}
           </div>
+          {this.renderAdminButtons(stream)}
         </li>
       );
     })
+  }
+
+  renderCreateButton() {
+    if (this.props.isSignedIn) {
+      return (
+        <div className="d-flex justify-content-end">
+          <Link to="/streams/new" className="btn btn-outline-success my-5">Create A Stream</Link>
+        </div>
+      );
+    }
   }
 
   render() {
@@ -29,6 +52,7 @@ class StreamList extends React.Component {
           <ul className="list-group shadow-sm p-3">
             {this.renderList()}
           </ul>
+          {this.renderCreateButton()}
         </div>
       </div>
     );
@@ -37,7 +61,11 @@ class StreamList extends React.Component {
 
 const mapStateToProps = state => {
   // takes the values from the object and returns an array of the streams
-  return { streams: Object.values(state.streams) };
+  return {
+    streams: Object.values(state.streams),
+    currentUserId: state.auth.userId,
+    isSignedIn: state.auth.isSignedIn
+  };
 }
 
 export default connect(mapStateToProps, { fetchStreams })(StreamList);
