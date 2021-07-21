@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import history from '../history';
 
 const Modal = props => {
   const style = {
@@ -15,15 +14,14 @@ const Modal = props => {
   };
 
   return ReactDOM.createPortal(
-    <div className="ui dimmer modals visible active" onClick={() => history.push('/')}>
+    <div className="ui dimmer modals visible active" onClick={props.onDismiss}>
       <div className="ui standard modal visible active" style={style} onClick={(event) => event.stopPropagation()}>
-        <div className="header">Delete Stream</div>
+        <div className="header">{props.title}</div>
         <div className="content">
-          Are you sure you want to delete?
+          {props.content}
         </div>
         <div className="actions">
-          <button className="ui button">Cancel</button>
-          <button className="ui primary button">Delete</button>
+          {props.actions}
         </div>
       </div>
     </div>,
