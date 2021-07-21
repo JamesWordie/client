@@ -27,7 +27,9 @@ class StreamList extends React.Component {
         <li className="list-group-item d-flex align-items-start my-2" key={stream.id} >
           <i className="bi bi-camera-video align-self-center me-2"></i>
           <div className="ms-2 me-auto">
-            <div className="fw-bold">{stream.title}</div>
+            <div className="fw-bold">
+              <Link className="text-decoration-none text-black-50" to={`/streams/${stream.id}`}>{stream.title}</Link>
+            </div>
             {stream.description}
           </div>
           {this.renderAdminButtons(stream)}
