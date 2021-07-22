@@ -38,6 +38,11 @@ class StreamShow extends React.Component {
     this.player.load();
   }
 
+  componentWillUnmount() {
+    // stop the stream and unmount the component, stops it trying to download the video
+    this.player.destroy();
+  }
+
   render() {
     if (!this.props.stream) {
       return <div>Loading...</div>
